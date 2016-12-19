@@ -65,34 +65,6 @@ class IndexController extends RestController
     }
 
     /*新建数据记录*/
-    public function create($user_login)
-    {
-//    public function create(){
-        $inputs = json_decode($GLOBALS['HTTP_RAW_POST_DATA'], true);//backbone使用application/json，必须使用$GLOBALS['HTTP_RAW_POST_DATA']来接收数据
-        $dataModel = D($_GET['table']);
-        if (!$dataModel->create($inputs)) {
-            echo json_encode(array(
-                "status" => "failure",
-                "error" => $dataModel->getError()
-            ));
-            return false;
-        } else {
-            $user = $dataModel->where("user_login = '%s'", array($user_login))->find();
-            if ($user) {
-                echo json_encode(array(
-                    "status" => "error",
-                    "error" => "账号已存在"
-                ));
-            } else {
-                $result = $dataModel->add();
-                echo json_encode(array(
-                    "status" => "success",
-                    "id" => $result,
-                ));
-            }
-
-        }
-    }
 
     public function update()
     {

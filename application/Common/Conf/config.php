@@ -84,7 +84,6 @@ $configs= array(
 			array(':table/:id','Api/index/read','',array('method'=>'get')),
 			array(':table/login','Api/index/login','',array('method'=>'post')),
 			array(':table/regist','Api/index/regist','',array('method'=>'post')),
-			array(':table','Api/index/create','',array('method'=>'post')),
 			array(':table/:id','Api/index/update','',array('method'=>'put')),
 			array(':table/:id','Api/index/delete','',array('method'=>'delete')),
 		),
