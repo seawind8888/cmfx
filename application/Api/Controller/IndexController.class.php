@@ -17,6 +17,7 @@ class IndexController extends RestController
     }
     public function login($user_login,$user_pass)
     {
+        header("Access-Control-Allow-Origin: *");
         $dataModel = D($_GET['table']);
         $condition['user_login'] = $user_login;
         $result = $dataModel->where($condition)->find();
