@@ -1,5 +1,6 @@
 <?php
 namespace Api\Controller;
+
 use Think\Controller\RestController;
 
 class IndexController extends RestController
@@ -11,32 +12,47 @@ class IndexController extends RestController
     public function read($id)
     {
         $dataModel = D($_GET['table']);
-        $condition['id'] = $id;
-        $result = $dataModel->where($condition)->find();
-        echo $this->responseFactory("read", $dataModel, $result, "数据不存在");
+        if ($id == 'all') {
+            $result = $dataModel->where('id>0')->select();
+            echo $this->responseFactory("read", $dataModel, $result, "数据不存在");
+        } else {
+            $condition['id'] = $id;
+            $result = $dataModel->where($condition)->find();
+            echo $this->responseFactory("read", $dataModel, $result, "数据不存在");
+        }
     }
-    public function login($user_login,$user_pass)
+
+    public function news()
+    {
+        $dataModel = D($_GET['table']);
+        $condition['id'] = 1;
+        $result = $dataModel->where($condition)->find();
+        echo $this->responseFactory("read", $dataModel, $result, "数据不存在11");
+    }
+
+    public function login($user_login, $user_pass)
     {
         header("Access-Control-Allow-Origin: *");
         $dataModel = D($_GET['table']);
         $condition['user_login'] = $user_login;
         $result = $dataModel->where($condition)->find();
-        if($result){
-            if(sp_compare_password($user_pass,$result['user_pass'])){
+        if ($result) {
+            if (sp_compare_password($user_pass, $result['user_pass'])) {
                 echo json_encode(array(
                     "status" => "success"
                 ));
-            }else{
+            } else {
                 echo json_encode(array(
                     "error" => "password fail!"
                 ));
             }
-        }else{
+        } else {
             echo json_encode(array(
                 "error" => $dataModel->getError()
             ));
         }
     }
+
     public function regist($user_login)
     {
         $inputs = json_decode($GLOBALS['HTTP_RAW_POST_DATA'], true);//backbone使用application/json，必须使用$GLOBALS['HTTP_RAW_POST_DATA']来接收数据

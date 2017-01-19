@@ -82,6 +82,7 @@ $configs= array(
         'URL_ROUTER_ON'			=> true,
         'URL_ROUTE_RULES'       => array(
 			array(':table/:id','Api/index/read','',array('method'=>'get')),
+			array(':table/news','Api/index/news','',array('method'=>'get')),
 			array(':table/login','Api/index/login','',array('method'=>'post')),
 			array(':table/regist','Api/index/regist','',array('method'=>'post')),
 			array(':table/:id','Api/index/update','',array('method'=>'put')),
